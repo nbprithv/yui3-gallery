@@ -18,33 +18,42 @@ function dtSelectiveCheckboxFormatter(o){
 	if(o.column.dtSelectiveCheckbox){
 		var scConfig = o.column.dtSelectiveCheckbox;
 		var scCheckboxValue = '<input type="checkbox" class="protocol-select" title="Toggle ALL records"/>';
+		console.log(o.column.dtSelectiveCheckbox);
+		console.log(o.data[scConfig.lColumn]);
 		var rCondition,lCondition;
-		if(scConfig.lColumn){
-			lCondition = o.data[scConfig.lColumn];
-		}else if(scConfig.lData){
-			lCondition = scConfig.lData;
-		}
-		if(scConfig.rColumn){
-			rCondition = o.data[scConfig.rColumn];
-		}else if(scConfig.rData){
-			rCondition = scConfig.rData;
-		}
-		switch (scConfig.condition){
-			case "gt":
-				if(rCondition > lCondition){
-					o.value = scCheckboxValue;
-				}
-			break;
-			case "lt":
-				if(rCondition < lCondition){
-					o.value = scCheckboxValue;
-				}
-			break;
-			case "eq":
-				if(rCondition == lCondition){
-					o.value = scCheckboxValue;
-				}
-			break;
+		if((!scConfig.lColumn && !scConfig.lData) || (!scConfig.rColumn && !scConfig.rData)){
+			o.value = scCheckboxValue;
+		}else{
+			if(scConfig.lColumn){
+				lCondition = o.data[scConfig.lColumn];
+			}else if(scConfig.lData){
+				lCondition = scConfig.lData;
+			}
+			if(scConfig.rColumn){
+				rCondition = o.data[scConfig.rColumn];
+			}else if(scConfig.rData){
+				rCondition = scConfig.rData;
+			}
+			switch (scConfig.condition){
+				case "gt":
+					if(rCondition > lCondition){
+						o.value = scCheckboxValue;
+					}
+				break;
+				case "lt":
+					if(rCondition < lCondition){
+						o.value = scCheckboxValue;
+					}
+				break;
+				case "eq":
+					if(rCondition == lCondition){
+						o.value = scCheckboxValue;
+					}
+				break;
+				default:
+						o.value = scCheckboxValue;
+				break;
+			}
 		}
 	}
 }
