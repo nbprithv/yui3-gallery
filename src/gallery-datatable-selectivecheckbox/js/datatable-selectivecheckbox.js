@@ -6,8 +6,6 @@ var _dtSelectiveCheckboxFormatter = function (o){
 	if(o.column.dtSelectiveCheckbox){
 		var scConfig = o.column.dtSelectiveCheckbox;
 		var scCheckboxValue = '<input type="checkbox" class="protocol-select" title="Toggle ALL records"/>';
-		console.log(o.column.dtSelectiveCheckbox);
-		console.log(o.data[scConfig.lColumn]);
 		var rCondition,lCondition;
 		if((!scConfig.lColumn && !scConfig.lData) || (!scConfig.rColumn && !scConfig.rData)){
 			o.value = scCheckboxValue;
@@ -52,12 +50,46 @@ Y.mix(_dtSelectiveCheckbox, {
 Y.extend(_dtSelectiveCheckbox,Y.Plugin.Base,{
 	initializer: function(config){
 		var dt = config.host;
+		dt.after('init',function(e){
+		});
+		dt.after('render',function(e){
+			var i=0;
+			var checkboxCount=0;
+			var checkboxSelectedCount=0;
+			while(this.getRow(i)){
+				var currentRow = this.getRow(i);
+				var currentRecordId = currentRow.get('id');
+				var currentRecord = this.getRecord(currentRecordId);
+				var childNodes = currentRow.get('childNodes');
+				childNodes.each(function(node){
+					if(node.hasClass('yui3-datatable-col-dtSelectiveCheckbox') && node.hasChildNodes()){
+						var domNode = node.getDOMNode();
+						var checkbox = node.get('childNodes').pop();
+						if(currentRecord.get('select') && checkbox.get('type') == 'checkbox'){
+							checkbox.setAttribute('checked','checked');	
+							checkboxSelectedCount++;
+							checkboxCount++;
+						}else if(checkbox.get('type') == 'checkbox'){
+							checkboxCount++;
+						}
+					}
+				});
+				i++;
+			}	
+			if(checkboxCount == checkboxSelectedCount)
+				Y.one('#dtSelectiveCheckbox-all').setAttribute('checked','checked');	
+		});
+		dt.delegate("click", function(e){
+			var checked = e.target.checked || false;
+			this.getRecord(e.target).set('select',checked);
+			e.target.checked = checked;
+		},".yui3-datatable-data .yui3-datatable-col-dtSelectiveCheckbox input", dt);
+		dt.delegate("click", function(e){
+		},"#dtSelectiveCheckbox-all", dt);
 	},
 	selectAllCheckBox : function(){
-		console.log('dddd');
 	},
 	getSelected : function(){
-		console.log('dddd');
 	}
 });
 Y.Plugin.DataTableSelectiveCheckbox = _dtSelectiveCheckbox;
