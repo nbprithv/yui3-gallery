@@ -1,0 +1,10 @@
+{
+    "name": "gallery-introtour-ui",
+    "builds": {
+        "gallery-introtour-ui": {
+            "jsfiles": [
+                "js/gallery-introtour-ui.js"
+            ]
+        }
+    }
+}
