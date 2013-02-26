@@ -90,12 +90,23 @@ YUI.add('gallery-introtour-ui', function(Y) {
 		}
 		return cardstyle;
 	};
+	var slideTemplate = function(title,content){
+		var html = "<div class='yui-galleryintrotourui-card-text'>"+
+						"<div class='yui-galleyintroui-card-title'>"+title+"</div>"+
+						"<div class='yui-galleryintrotourui-card-content'>"+content+"</div>"+
+					"</div>"+
+					"<div class='yui-galleryintrotourui-card-nav'>"+
+						"<div class='yui-galleryintrotourui-card-next'>Next</div>"+
+					"</div>";
+		return html;
+	}
 	var generateSlideDom = function(toppos,leftpos,content,title,id){
-		var html = "<div>"+title+"</div>";
+		var html = slideTemplate(content,title);//"<div>"+title+"</div>";
+console.log(html);
 		var node = new Y.Node(document.createElement('div'));
 		toppos = toppos+"px";
 		leftpos = leftpos+"px";
-		node.addClass('galleryintrotourui-card');
+		node.addClass('yui-galleryintrotourui-card');
 		node.setAttribute('id',id);
 		node.setStyle('top',toppos);
 		node.setStyle('left',leftpos);
