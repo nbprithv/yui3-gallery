@@ -5,6 +5,7 @@
 	-webkit-box-shadow: 0 0 11px#888;
 	box-shadow: 0 0 11px #888;
 	border:1px solid #6e329d;
+	display:none;
 }
 .yui-galleryintrotourui-card-container{
 	background-color:#FFF;

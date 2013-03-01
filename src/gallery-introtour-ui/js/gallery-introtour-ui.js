@@ -94,9 +94,10 @@ YUI.add('gallery-introtour-ui', function(Y) {
 		}
 		return cardstyle;
 	};
-	var slideTemplate = function(ci,button){
+	var slideTemplate = function(ci,button,seqid){
 		if(!ci.title)ci.title="";
 		if(!ci.content)ci.content="";
+		if(seqid > 0)button.buttonid = button.buttonid+seqid;
 		var html = "";
 		var arrowclass = "";
 		if(ci.position == "right")arrowclass="right";
@@ -111,18 +112,18 @@ YUI.add('gallery-introtour-ui', function(Y) {
 							"<div class='yui-galleryintrotourui-card-content'>"+ci.content+"</div>"+
 						"</div>"+
 						"<div class='yui-galleryintrotourui-card-nav'>"+
-							"<div id='"+button.buttonid+"' class='yui-galleryintrotourui-card-next'>"+button.content+"</div>"+
+							"<div data-seqid='"+seqid+"' id='"+button.buttonid+"' class='yui-galleryintrotourui-card-next'>"+button.content+"</div>"+
 						"</div>"+
 					"</div>";
 
 		return html;
 	}
-	var generateSlideDom = function(toppos,leftpos,ci,id,type){
+	var generateSlideDom = function(toppos,leftpos,ci,id,type,seqid){
 		var button = new Object();
 		if(!type)button = ATTRS.buttonnav;
-		else if(type == "welcome")button=ATTRS.buttonwelcome;
-		else if(type == "end")button=ATTRS.buttontourend;
-		var html = slideTemplate(ci,button);
+		else if(type == "welcome"){button=ATTRS.buttonwelcome;seqid="welcome";}
+		else if(type == "end"){button=ATTRS.buttontourend;seqid="end"}
+		var html = slideTemplate(ci,button,seqid);
 		var node = new Y.Node(document.createElement('div'));
 		node.addClass('yui-galleryintrotourui-card');
 		node.setAttribute('id',id);
@@ -173,7 +174,7 @@ YUI.add('gallery-introtour-ui', function(Y) {
 	};
 	Y.Introtour.init = function(cardinfo,cardstyle){
 		cardstyle = setcardstyle(cardstyle);
-		generateSlideDom("60px","50%",cardinfo[0],'galleryintrotourui-card-welcome','welcome');
+		generateSlideDom("60px","50%",cardinfo[0],'galleryintrotourui-card-welcome','welcome',0);
 		for(var i=1;i<cardinfo.length;i++){
 			var ci = cardinfo[i];
 			var elem = document.getElementById(ci.divfocus);
@@ -185,9 +186,26 @@ YUI.add('gallery-introtour-ui', function(Y) {
 				var id='galleryintrotourui-card-'+i;
 				pos[1] = pos[1]+"px";
 				pos[0] = pos[0]+"px";
-				var slide = generateSlideDom(pos[1],pos[0],ci,id);
+				if(i==cardinfo.length-2)i="end";
+				var slide = generateSlideDom(pos[1],pos[0],ci,id,'',i);
 			}
 		}
-		generateSlideDom("60px","50%",cardinfo[cardinfo.length-1],'galleryintrotourui-card-endtour','end');
+		generateSlideDom("60px","50%",cardinfo[cardinfo.length-1],'galleryintrotourui-card-endtour','end',0);
+		Y.one('#galleryintrotourui-card-welcome').setStyle('display','block');
+		Y.on("click",function(){
+			var seqid = this.getAttribute("data-seqid");
+			Y.all(".yui-galleryintrotourui-card").setStyle("display","none");
+			if(seqid == "welcome"){
+				Y.one('#galleryintrotourui-card-1').setStyle('display','block');
+			}else if(seqid == "end"){
+				Y.one("#galleryintrotourui-card-endtour").setStyle('display','block');
+				if(this.getAttribute("id") == "yui-galleryintrotourui-buttontourend-id"){
+					Y.all(".yui-galleryintrotourui-card").setStyle("display","none");
+				}
+			}else{
+				seqid++;
+				Y.one('#galleryintrotourui-card-'+seqid).setStyle('display','block');
+			}
+		},".yui-galleryintrotourui-card-next");
 	};
 }, '0.1.1',{requires: ['node']});
