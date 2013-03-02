@@ -1,8 +1,8 @@
 /*******************************************/
 /*
-YUI Gallery Intro Tour module 
+YUI Gallery Intro Tour module
 Set up step by step intro tours on your page.
-Usage: 
+Usage:
 	YUI().use("gallery-introtour-ui",function(Y){
 		var tour_cards = [{'title':'Welcome','position':'pagecenter','content':},
 							{'title':'Click here to start','divfocus':'#clickhere','position':'right','width':'30'},
@@ -33,8 +33,8 @@ YUI.add('gallery-introtour-ui', function(Y) {
 				} while (obj = obj.offsetParent);
 			}
 		return [curleft,curtop];
-	};
-	var ATTRS = {
+	},
+	ATTRS = {
 		'cardstyle':{'button':'#61399d','buttontext':'#000','title':'#fff','content':'#fff','cardborder':'#61399d'},
 		'carddimension':{'height':'300px','width':'300px'},
 		'initcardpos':{'marginleft':'-150px'},
@@ -42,11 +42,11 @@ YUI.add('gallery-introtour-ui', function(Y) {
 		'buttontourend':{'content':'Close','buttonid':'yui-galleryintrotourui-buttontourend-id'},
 		'buttonnav':{'content':'Next','buttonid':'yui-galleryintrotourui-buttonnav-'}
 		
-	};
-	var setcardstyle = function(cardstyle){
+	},
+	setcardstyle = function(cardstyle){
 		if(!cardstyle){
 			cardstyle = ATTRS.cardstyle;
-		}else{ 
+		}else{
 			var defAttrs = ATTRS.cardstyle;
 			if(!cardstyle.button){cardstyle.button = defAttrs.button;}
 			if(!cardstyle.buttontext){cardstyle.buttontext = defAttrs.buttontext;}
@@ -55,20 +55,19 @@ YUI.add('gallery-introtour-ui', function(Y) {
 			if(!cardstyle.cardborder){cardstyle.border = defAttrs.border;}
 		}
 		return cardstyle;
-	};
-	var slideTemplate = function(ci,button,seqid){
-		var buttonid = button.buttonid;
-		if(!ci.title)ci.title="";
-		if(!ci.content)ci.content="";
-		if(seqid > 0)buttonid = buttonid+seqid;
-		var html = "";
-		var arrowclass = "";
-		if(ci.position == "right"){arrowclass="right";}
-		else if(ci.position == "left"){arrowclass="left";}
-		else if(ci.position == "top"){arrowclass="top";}
-		else if(ci.position == "bottom"){arrowclass="bottom";}
+	},
+	slideTemplate = function(ci,button,seqid){
+		var buttonid = button.buttonid,
+		html = "",
+		arrowclass = "";
+		if(!ci.title){ci.title="";}
+		if(!ci.content){ci.content="";}
+		if(seqid > 0){buttonid = buttonid+seqid;}
+		if(ci.position === "right"){arrowclass="right";}
+		else if(ci.position === "left"){arrowclass="left";}
+		else if(ci.position === "top"){arrowclass="top";}
+		else if(ci.position === "bottom"){arrowclass="bottom";}
 		if(arrowclass){html = "<div class='yui-galleryintrotourui-card-arrow "+arrowclass+"'></div>";}
-		//if(arrowclass)html = "<div class='arrow top'></div>";
 		html += "<div class='yui-galleryintrotourui-card-container'>"+
 						"<div class='yui-galleryintrotourui-card-text'>"+
 							"<div class='yui-galleyintroui-card-title'>"+ci.title+"</div>"+
@@ -80,39 +79,39 @@ YUI.add('gallery-introtour-ui', function(Y) {
 					"</div>";
 
 		return html;
-	}
-	var generateSlideDom = function(toppos,leftpos,ci,id,type,seqid){
-		var button = new Object();
+	},
+	generateSlideDom = function(toppos,leftpos,ci,id,type,seqid){
+		var button = {},
+		html;
 		if(!type){button = ATTRS.buttonnav;}
-		else if(type == "welcome"){button=ATTRS.buttonwelcome;seqid="welcome";}
-		else if(type == "end"){button=ATTRS.buttontourend;seqid="end"}
-console.log(button);
-		var html = slideTemplate(ci,button,seqid);
-		var node = new Y.Node(document.createElement('div'));
+		else if(type === "welcome"){button=ATTRS.buttonwelcome;seqid="welcome";}
+		else if(type === "end"){button=ATTRS.buttontourend;seqid="end";}
+		html = slideTemplate(ci,button,seqid),
+		node = new Y.Node(document.createElement('div'));
 		node.addClass('yui-galleryintrotourui-card');
 		node.setAttribute('id',id);
 		node.setStyle('width',ATTRS.carddimension.width);
 		node.setStyle('top',toppos);
 		node.setStyle('left',leftpos);
 		node.set('innerHTML',html);
-		if(type == "welcome" || type == "end"){
+		if(type === "welcome" || type === "end"){
 			node.setStyle("marginLeft",ATTRS.initcardpos.marginleft);
 		}
 		Y.one('body').appendChild(node);
-	};
-	var getCardPos = function(ci,pos){
-		var toppos = 0;
-		var leftpos = 0;
-		if((ci.position == 'left' || ci.position == 'right') && ci.width == 'undefined'){
+	},
+	getCardPos = function(ci,pos){
+		var toppos = 0,
+		leftpos = 0;
+		if((ci.position === 'left' || ci.position === 'right') && ci.width === 'undefined'){
 			ci.width = 0;
 		}
-		if((ci.position == 'top' || ci.position == 'bottom') && ci.height == 'undefined'){
+		if((ci.position === 'top' || ci.position === 'bottom') && ci.height === 'undefined'){
 			ci.width = 0;
 		}
-		pos[0] = parseInt(pos[0]);
-		pos[1] = parseInt(pos[1]);
-		ci.width = parseInt(ci.width);
-		ci.height = parseInt(ci.height);
+		pos[0] = parseInt(pos[0],10);
+		pos[1] = parseInt(pos[1],10);
+		ci.width = parseInt(ci.width,10);
+		ci.height = parseInt(ci.height,10);
 		switch(ci.position){
 			case "right":
 				toppos = pos[1];
@@ -134,39 +133,38 @@ console.log(button);
 				toppos = pos[1];
 				leftpos = pos[0]+50;
 			break;
-		};
+		}
 		pos[1] = toppos;
 		pos[0] = leftpos;
-		return pos;	
+		return pos;
 	};
 	Y.Introtour.init = function(cardinfo,cardstyle){
 		cardstyle = setcardstyle(cardstyle);
 		generateSlideDom("60px","50%",cardinfo[0],'galleryintrotourui-card-welcome','welcome',0);
 		for(var i=1;i<cardinfo.length;i++){
-			var ci = cardinfo[i];
-			var elem = document.getElementById(ci.divfocus);
+			var ci = cardinfo[i],
+			elem = document.getElementById(ci.divfocus),
+			pos;
 			if(elem){
-				var pos = findpos(elem);
+				pos = findpos(elem),
+				id='galleryintrotourui-card-'+i;
 				pos = getCardPos(ci,pos);
-				var title = ci.title;
-				var content = '';
-				var id='galleryintrotourui-card-'+i;
 				pos[1] = pos[1]+"px";
 				pos[0] = pos[0]+"px";
-				if(i==cardinfo.length-2){i="end";}
-				var slide = generateSlideDom(pos[1],pos[0],ci,id,'',i);
+				if(i===cardinfo.length-2){i="end";}
+				generateSlideDom(pos[1],pos[0],ci,id,'',i);
 			}
 		}
 		generateSlideDom("60px","50%",cardinfo[cardinfo.length-1],'galleryintrotourui-card-endtour','end',0);
 		window.scrollTo(0,0);
 		Y.one('#galleryintrotourui-card-welcome').setStyle('display','block');
 		Y.on("click",function(){
-			var seqid = this.getAttribute("data-seqid");
+			var seqid = this.getAttribute("data-seqid"),
+			carddivid = "";
 			Y.all(".yui-galleryintrotourui-card").setStyle("display","none");
-			var carddivid = "";
-			if(seqid == "welcome"){
+			if(seqid === "welcome"){
 				carddivid = "#galleryintrotourui-card-1";
-			}else if(seqid == "end"){
+			}else if(seqid === "end"){
 				carddivid = "#galleryintrotourui-card-endtour";
 			}else{
 				seqid++;
@@ -177,8 +175,8 @@ console.log(button);
 			}else{
 				Y.one(carddivid).setStyle('display','block');
 				if(seqid !== "end"){
-					var toppos = Y.one(carddivid).getStyle('top');
-					var leftpos = Y.one(carddivid).getStyle('left');
+					var toppos = Y.one(carddivid).getStyle('top'),
+					leftpos = Y.one(carddivid).getStyle('left');
 					toppos = toppos.split("px");
 					leftpos = leftpos.split("px");
 					window.scrollTo(leftpos[0],toppos[0]);
