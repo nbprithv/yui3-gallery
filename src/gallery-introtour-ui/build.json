@@ -7,7 +7,14 @@
             ],
             "cssfiles": [
                 "css/gallery-introtour-ui.css"
-            ]
+            ],
+			"config": {
+                "use": [
+                    "yui-base",
+					"yui3",
+					"node"
+                ]
+            }
         }
     }
 }

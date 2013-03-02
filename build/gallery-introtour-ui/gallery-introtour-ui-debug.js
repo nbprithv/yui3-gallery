@@ -191,4 +191,4 @@ YUI.add('gallery-introtour-ui', function(Y) {
 }, '0.1.1',{requires: ['node']});
 
 
-}, '@VERSION@', {"requires": ["yui-base"]});
+}, '@VERSION@', {"use": ["yui-base", "yui3", "node"], "requires": ["yui-base"]});
