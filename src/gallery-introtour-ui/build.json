@@ -4,6 +4,9 @@
         "gallery-introtour-ui": {
             "jsfiles": [
                 "js/gallery-introtour-ui.js"
+            ],
+            "cssfiles": [
+                "css/gallery-introtour-ui.css"
             ]
         }
     }
