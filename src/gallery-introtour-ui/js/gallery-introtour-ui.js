@@ -34,34 +34,6 @@ YUI.add('gallery-introtour-ui', function(Y) {
 			}
 		return [curleft,curtop];
 	};
-	function findpos1( _el ) {
-		var    
-		   target = _el, 
-		   target_width = target.offsetWidth, 
-		   target_height = target.offsetHeight,
-		   target_left = target.offsetLeft,
-		   target_top = target.offsetTop,
-		   gleft = 0, 
-		   gtop = 0,
-		   rect = {};
-		  
-		var moonwalk = function( _parent ) {
-			if (!!_parent) {
-				gleft += _parent.offsetLeft;
-				gtop += _parent.offsetTop;
-				moonwalk( _parent.offsetParent );
-			} else {
-				return rect = { 
-					 top: target.offsetTop + gtop, 
-					 left: target.offsetLeft + gleft, 
-					 bottom: (target.offsetTop + gtop) + target_height, 
-					 right: (target.offsetLeft + gleft) + target_width 
-				};
-			}
-		};
-		moonwalk( target.offsetParent );
-		return rect;
-	}
 	function getOffset( el ) {
 		var _x = 0;
 		var _y = 0;
