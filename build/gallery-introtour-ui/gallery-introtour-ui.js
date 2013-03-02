@@ -71,12 +71,13 @@ YUI.add('gallery-introtour-ui', function(Y) {
 		else if(ci.position === "bottom"){arrowclass="bottom";}
 		if(arrowclass){html = "<div class='yui-galleryintrotourui-card-arrow "+arrowclass+"'></div>";}
 		html += "<div class='yui-galleryintrotourui-card-container'>"+
+						"<div class='yui-galleryintrotourui-card-closebutton'>x</div><div class='yui-galleryintrotourui-clearfix'></div>"+
 						"<div class='yui-galleryintrotourui-card-text'>"+
 							"<div class='yui-galleyintroui-card-title'>"+ci.title+"</div>"+
 							"<div class='yui-galleryintrotourui-card-content'>"+ci.content+"</div>"+
 						"</div>"+
 						"<div class='yui-galleryintrotourui-card-nav'>"+
-							"<div data-seqid='"+seqid+"' id='"+buttonid+"' class='yui-galleryintrotourui-card-next'>"+button.content+"</div>"+
+							"<div data-seqid='"+seqid+"' id='"+buttonid+"' class='yui-galleryintrotourui-card-next yui3-button notice'>"+button.content+"</div>"+
 						"</div>"+
 					"</div>";
 
@@ -187,6 +188,9 @@ YUI.add('gallery-introtour-ui', function(Y) {
 				}
 			}
 		},".yui-galleryintrotourui-card-next");
+		Y.on("click",function(){
+			Y.all(".yui-galleryintrotourui-card").setStyle("display","none");
+		},".yui-galleryintrotourui-card-closebutton");
 	};
 }, '0.1.1',{requires: ['node']});
 
