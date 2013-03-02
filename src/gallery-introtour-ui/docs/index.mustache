@@ -1,14 +1,21 @@
 <div class="intro">
     <p>
-    *Summary Goes Here*
+		Module helps in integrating step by step tour of features on your page.
     </p>
 </div>
 
 <h2>Description</h2>
 
-<p>*Module Description Goes Here*</p>
+<p>
+	Use this plugin as a way to tell users of a new feature on your web page. The module integrates simple step by step cards explaining different components on your page. This is an easy way to highlight new features and help users get accustomed to it.	
+</p>
 
-```
-//Module example code
-```
-
+YUI().use('gallery-introtour-ui', function (Y) {
+var tour_cards = [{'title':'Welcome','position':'pagecenter','content':'Welcome to this feature tour'},
+                {'title':'Get Started','content':'This tells you what to do to get started.','divfocus':'hello1','position':'right','width':'100'},
+                {'title':'Go here next','content':'Next, you should probably try this out.','divfocus':'hello2','position':'top','height':'125'},
+                {'title':'Try this!','content':'This helps you get more information.','divfocus':'hello3','position':'bottom','height':'50'},
+                {'title':'Important!','content':'Finally click here to save changes.','divfocus':'hello4','position':'left','width':'50'},
+                {'title':'That\'s it! You\'re good to go!','position':'pagecenter'}];
+Y.Introtour.init(tour_cards);//starts the tour. User see's welcome card first, followed by the other ones.
+});
