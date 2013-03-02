@@ -57,9 +57,10 @@ YUI.add('gallery-introtour-ui', function(Y) {
 		return cardstyle;
 	};
 	var slideTemplate = function(ci,button,seqid){
+		var buttonid = button.buttonid;
 		if(!ci.title)ci.title="";
 		if(!ci.content)ci.content="";
-		if(seqid > 0)button.buttonid = button.buttonid+seqid;
+		if(seqid > 0)buttonid = buttonid+seqid;
 		var html = "";
 		var arrowclass = "";
 		if(ci.position == "right"){arrowclass="right";}
@@ -74,7 +75,7 @@ YUI.add('gallery-introtour-ui', function(Y) {
 							"<div class='yui-galleryintrotourui-card-content'>"+ci.content+"</div>"+
 						"</div>"+
 						"<div class='yui-galleryintrotourui-card-nav'>"+
-							"<div data-seqid='"+seqid+"' id='"+button.buttonid+"' class='yui-galleryintrotourui-card-next'>"+button.content+"</div>"+
+							"<div data-seqid='"+seqid+"' id='"+buttonid+"' class='yui-galleryintrotourui-card-next'>"+button.content+"</div>"+
 						"</div>"+
 					"</div>";
 
@@ -85,6 +86,7 @@ YUI.add('gallery-introtour-ui', function(Y) {
 		if(!type){button = ATTRS.buttonnav;}
 		else if(type == "welcome"){button=ATTRS.buttonwelcome;seqid="welcome";}
 		else if(type == "end"){button=ATTRS.buttontourend;seqid="end"}
+console.log(button);
 		var html = slideTemplate(ci,button,seqid);
 		var node = new Y.Node(document.createElement('div'));
 		node.addClass('yui-galleryintrotourui-card');
@@ -156,6 +158,7 @@ YUI.add('gallery-introtour-ui', function(Y) {
 			}
 		}
 		generateSlideDom("60px","50%",cardinfo[cardinfo.length-1],'galleryintrotourui-card-endtour','end',0);
+		window.scrollTo(0,0);
 		Y.one('#galleryintrotourui-card-welcome').setStyle('display','block');
 		Y.on("click",function(){
 			var seqid = this.getAttribute("data-seqid");
