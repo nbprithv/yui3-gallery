@@ -6,6 +6,7 @@
                 "js/gallery-introtour-ui.js"
             ],
             "cssfiles": [
+                "css/yui3-cssbuttons.css",
                 "css/gallery-introtour-ui.css"
             ],
 			"config": {
