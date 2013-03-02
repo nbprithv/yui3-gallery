@@ -146,6 +146,7 @@ YUI.add('gallery-introtour-ui', function(Y) {
 		pos[0] = parseInt(pos[0]);
 		pos[1] = parseInt(pos[1]);
 		ci.width = parseInt(ci.width);
+		ci.height = parseInt(ci.height);
 		switch(ci.position){
 			case "right":
 				toppos = pos[1];
@@ -153,7 +154,7 @@ YUI.add('gallery-introtour-ui', function(Y) {
 			break;
 			case "left":
 				toppos = pos[1];
-				leftpos = pos[0]-ci.width;
+				leftpos = pos[0]-ci.width-300;
 			break;
 			case "top":
 				toppos = pos[1]-ci.height;
