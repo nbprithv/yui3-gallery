@@ -34,16 +34,6 @@ YUI.add('gallery-introtour-ui', function(Y) {
 			}
 		return [curleft,curtop];
 	};
-	function getOffset( el ) {
-		var _x = 0;
-		var _y = 0;
-		while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-			_x += el.offsetLeft - el.scrollLeft;
-			_y += el.offsetTop - el.scrollTop;
-			el = el.offsetParent;
-		}
-		return { top: _y, left: _x };
-	}
 	var ATTRS = {
 		'cardstyle':{'button':'#61399d','buttontext':'#000','title':'#fff','content':'#fff','cardborder':'#61399d'},
 		'carddimension':{'height':'300px','width':'300px'},
@@ -58,11 +48,11 @@ YUI.add('gallery-introtour-ui', function(Y) {
 			cardstyle = ATTRS.cardstyle;
 		}else{ 
 			var defAttrs = ATTRS.cardstyle;
-			if(!cardstyle.button)cardstyle.button = defAttrs.button;
-			if(!cardstyle.buttontext)cardstyle.buttontext = defAttrs.buttontext;
-			if(!cardstyle.title)cardstyle.title = defAttrs.title;
-			if(!cardstyle.content)cardstyle.content = defAttrs.content;
-			if(!cardstyle.cardborder)cardstyle.border = defAttrs.border;
+			if(!cardstyle.button){cardstyle.button = defAttrs.button;}
+			if(!cardstyle.buttontext){cardstyle.buttontext = defAttrs.buttontext;}
+			if(!cardstyle.title){cardstyle.title = defAttrs.title;}
+			if(!cardstyle.content){cardstyle.content = defAttrs.content;}
+			if(!cardstyle.cardborder){cardstyle.border = defAttrs.border;}
 		}
 		return cardstyle;
 	};
@@ -72,11 +62,11 @@ YUI.add('gallery-introtour-ui', function(Y) {
 		if(seqid > 0)button.buttonid = button.buttonid+seqid;
 		var html = "";
 		var arrowclass = "";
-		if(ci.position == "right")arrowclass="right";
-		else if(ci.position == "left")arrowclass="left";
-		else if(ci.position == "top")arrowclass="top";
-		else if(ci.position == "bottom")arrowclass="bottom";
-		if(arrowclass)html = "<div class='yui-galleryintrotourui-card-arrow "+arrowclass+"'></div>";
+		if(ci.position == "right"){arrowclass="right";}
+		else if(ci.position == "left"){arrowclass="left";}
+		else if(ci.position == "top"){arrowclass="top";}
+		else if(ci.position == "bottom"){arrowclass="bottom";}
+		if(arrowclass){html = "<div class='yui-galleryintrotourui-card-arrow "+arrowclass+"'></div>";}
 		//if(arrowclass)html = "<div class='arrow top'></div>";
 		html += "<div class='yui-galleryintrotourui-card-container'>"+
 						"<div class='yui-galleryintrotourui-card-text'>"+
@@ -92,7 +82,7 @@ YUI.add('gallery-introtour-ui', function(Y) {
 	}
 	var generateSlideDom = function(toppos,leftpos,ci,id,type,seqid){
 		var button = new Object();
-		if(!type)button = ATTRS.buttonnav;
+		if(!type){button = ATTRS.buttonnav;}
 		else if(type == "welcome"){button=ATTRS.buttonwelcome;seqid="welcome";}
 		else if(type == "end"){button=ATTRS.buttontourend;seqid="end"}
 		var html = slideTemplate(ci,button,seqid);
@@ -111,10 +101,12 @@ YUI.add('gallery-introtour-ui', function(Y) {
 	var getCardPos = function(ci,pos){
 		var toppos = 0;
 		var leftpos = 0;
-		if((ci.position == 'left' || ci.position == 'right') && ci.width == 'undefined')
+		if((ci.position == 'left' || ci.position == 'right') && ci.width == 'undefined'){
 			ci.width = 0;
-		if((ci.position == 'top' || ci.position == 'bottom') && ci.height == 'undefined')
+		}
+		if((ci.position == 'top' || ci.position == 'bottom') && ci.height == 'undefined'){
 			ci.width = 0;
+		}
 		pos[0] = parseInt(pos[0]);
 		pos[1] = parseInt(pos[1]);
 		ci.width = parseInt(ci.width);
@@ -159,7 +151,7 @@ YUI.add('gallery-introtour-ui', function(Y) {
 				var id='galleryintrotourui-card-'+i;
 				pos[1] = pos[1]+"px";
 				pos[0] = pos[0]+"px";
-				if(i==cardinfo.length-2)i="end";
+				if(i==cardinfo.length-2){i="end";}
 				var slide = generateSlideDom(pos[1],pos[0],ci,id,'',i);
 			}
 		}
@@ -177,11 +169,11 @@ YUI.add('gallery-introtour-ui', function(Y) {
 				seqid++;
 				carddivid = '#galleryintrotourui-card-'+seqid;
 			}
-			if(this.getAttribute("id") == "yui-galleryintrotourui-buttontourend-id"){
+			if(this.getAttribute("id") === "yui-galleryintrotourui-buttontourend-id"){
 				Y.all(".yui-galleryintrotourui-card").setStyle("display","none");
 			}else{
 				Y.one(carddivid).setStyle('display','block');
-				if(seqid != "end"){
+				if(seqid !== "end"){
 					var toppos = Y.one(carddivid).getStyle('top');
 					var leftpos = Y.one(carddivid).getStyle('left');
 					toppos = toppos.split("px");
