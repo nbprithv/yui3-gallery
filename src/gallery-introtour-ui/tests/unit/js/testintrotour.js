@@ -1,9 +1,9 @@
 YUI().use('gallery-introtour-ui','test', function (Y) {
 	var tour_cards = [{'title':'Welcome','position':'pagecenter','content':'Welcome to this feature tour'},
-                {'title':'Get Started','content':'This tells you what to do to get started.','divfocus':'hello1','position':'right','width':'100'},
-                {'title':'Go here next','content':'Next, you should probably try this out.','divfocus':'hello2','position':'top','height':'125'},
-                {'title':'Try this!','content':'This helps you get more information.','divfocus':'hello3','position':'bottom','height':'50'},
-                {'title':'Important!','content':'Finally click here to save changes.','divfocus':'hello4','position':'left','width':'50'},
+                {'title':'Get Started','content':'This tells you what to do to get started.','target':'hello1','position':'right','width':'100'},
+                {'title':'Go here next','content':'Next, you should probably try this out.','target':'hello2','position':'top','height':'125'},
+                {'title':'Try this!','content':'This helps you get more information.','target':'hello3','position':'bottom','height':'50'},
+                {'title':'Important!','content':'Finally click here to save changes.','target':'hello4','position':'left','width':'50'},
                 {'title':'That\'s it! You\'re good to go!','position':'pagecenter'}];
 	Y.Introtour.init(tour_cards);
 	var findpos = function (obj){
