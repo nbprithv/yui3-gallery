@@ -13,7 +13,8 @@
                 "use": [
                     "yui-base",
 					"yui3",
-					"node"
+					"node",
+					"event"
                 ]
             }
         }
